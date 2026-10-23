@@ -1,0 +1,111 @@
+{
+  "name": "ChatSession",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "\u4f1a\u8bdd\u6807\u9898"
+    },
+    "stage": {
+      "type": "string",
+      "enum": [
+        "idle",
+        "recognizing",
+        "awaiting_confirm",
+        "awaiting_apply",
+        "calculating",
+        "calculated",
+        "done",
+        "clarifying"
+      ],
+      "description": "idle=\u5f85\u8f93\u5165\uff1brecognizing=\u8bc6\u522b\u4e2d\uff1bawaiting_confirm=\u8bc6\u522b\u7ed3\u679c\u5f85\u786e\u8ba4\uff1bawaiting_apply=\u4fee\u6539\u5efa\u8bae\u5f85\u786e\u8ba4\uff1bcalculating=\u6d4b\u7b97\u4e2d\uff1bcalculated=\u811a\u672c\u5df2\u751f\u6210\uff1bdone=\u5df2\u5b8c\u6210\uff1bclarifying=\u53cd\u9988\u610f\u56fe\u6f84\u6e05\u4e2d"
+    },
+    "llm_model": {
+      "type": "string",
+      "enum": [
+        "pro",
+        "flash"
+      ],
+      "default": "pro",
+      "description": "\u4f1a\u8bdd\u4f7f\u7528\u7684\u5bf9\u8bdd\u6a21\u578b\uff1apro=DeepSeek V4 Pro\uff1bflash=DeepSeek V4 Flash\uff08\u601d\u8003\u6a21\u5f0f\u9ed8\u8ba4\u5173\u95ed\uff09"
+    },
+    "quote_id": {
+      "type": "string",
+      "description": "\u5173\u8054\u62a5\u4ef7\u5355"
+    },
+    "supplier_name": {
+      "type": "string",
+      "description": "\u4f9b\u5e94\u5546\u540d\u79f0"
+    },
+    "pending_intent": {
+      "type": "object",
+      "description": "\u5f85\u6f84\u6e05\u7684\u53cd\u9988\u610f\u56fe\uff1a{stage, feedback, history}\uff0c\u7528\u6237\u56de\u7b54\u6f84\u6e05\u95ee\u9898\u540e\u636e\u6b64\u8def\u7531\u5230\u5bf9\u5e94\u6d41\u7a0b"
+    },
+    "pending_knowledge": {
+      "type": "object",
+      "description": "\u5f85\u4e13\u5bb6\u786e\u8ba4\u7684\u77e5\u8bc6\u5e93\u8349\u7a3f\uff1a{date, drafts:[{id,kind,category,term,mapped_value,content,applies_to,variables,expressions,currency,unit,reason,duplicates:[{id,label}]}]}\uff0c\u786e\u8ba4\u540e\u5199\u5165\u77e5\u8bc6\u5e93\u5e76\u6e05\u7a7a"
+    }
+  },
+  "required": [
+    "title",
+    "stage"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "user"
+          }
+        }
+      ]
+    },
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "user"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "user"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "user"
+          }
+        }
+      ]
+    }
+  }
+}

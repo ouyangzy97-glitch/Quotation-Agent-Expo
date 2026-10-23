@@ -1,0 +1,171 @@
+{
+  "name": "SupplierQuote",
+  "type": "object",
+  "properties": {
+    "session_id": {
+      "type": "string",
+      "description": "\u8bc6\u522b\u4f1a\u8bdd ID"
+    },
+    "supplier_name": {
+      "type": "string",
+      "description": "\u4f9b\u5e94\u5546\u540d\u79f0"
+    },
+    "title": {
+      "type": "string",
+      "description": "\u62a5\u4ef7\u5355\u6807\u9898"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "confirmed",
+        "calculated",
+        "archived"
+      ],
+      "description": "draft=\u5f85\u786e\u8ba4\uff1bconfirmed=\u5df2\u786e\u8ba4\uff1bcalculated=\u5df2\u6d4b\u7b97\uff1barchived=\u5df2\u5b58\u6863"
+    },
+    "source_type": {
+      "type": "string",
+      "enum": [
+        "file",
+        "text"
+      ],
+      "description": "file=\u6587\u4ef6\u4e0a\u4f20\uff1btext=\u7c98\u8d34\u6587\u5b57"
+    },
+    "file_name": {
+      "type": "string",
+      "description": "\u539f\u59cb\u6587\u4ef6\u540d"
+    },
+    "file_uri": {
+      "type": "string",
+      "description": "\u79c1\u6709\u6587\u4ef6 URI"
+    },
+    "transport_fees": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      },
+      "description": "\u8fd0\u8f93\u8d39\uff1a\u7ed3\u6784\u5316\u5b57\u6bb5 + raw \u539f\u6587\uff08\u5f53\u524d\u7248\u672c\uff09"
+    },
+    "service_fees": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      },
+      "description": "\u670d\u52a1\u8d39\uff1a\u540d\u79f0 + \u5355\u4ef7/\u5e01\u79cd/\u8ba1\u4ef7\u5355\u4f4d/\u9644\u52a0\u6761\u6b3e + \u5b8c\u6574\u539f\u6587\uff08\u5f53\u524d\u7248\u672c\uff09"
+    },
+    "versions": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      },
+      "description": "\u8bc6\u522b\u7ed3\u679c\u7248\u672c\u5feb\u7167\uff1a{date,label,transport,service}\uff0cv0 \u4e3a\u539f\u59cb\u8bc6\u522b\uff0c\u540e\u7eed\u4e3a\u6bcf\u6b21\u4fee\u6b63\u540e\u7684\u7248\u672c"
+    },
+    "pending_changes": {
+      "type": "object",
+      "description": "\u5f85\u786e\u8ba4\u7684\u4fee\u6539\u5efa\u8bae\uff1a{date,feedback,supplier_name,title,unmatched_cities,transport,service,changes}\uff0c\u786e\u8ba4\u540e\u5e94\u7528\u5e76\u751f\u6210\u65b0\u7248\u672c"
+    },
+    "corrections": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      },
+      "description": "\u4e13\u5bb6\u4fee\u6b63\u5386\u53f2\uff08\u65f6\u95f4\u3001\u53cd\u9988\u3001\u53d8\u66f4\uff09"
+    },
+    "calc_script": {
+      "type": "object",
+      "description": "\u6d4b\u7b97\u811a\u672c\uff08\u5f53\u524d\u7248\uff09\uff1aper_service \u683c\u5f0f {format:'per_service',version,transport:{script,versions},services:[{name,enabled,script,versions}]}\uff0c\u6bcf\u4e2a\u670d\u52a1\u8d39\u4e00\u4e2a\u72ec\u7acb\u811a\u672c\u3001\u9ed8\u8ba4\u5168\u90e8\u542f\u7528\uff1b\u517c\u5bb9\u65e7\u5355\u811a\u672c\u683c\u5f0f {code,variables,program,test_input,version}"
+    },
+    "calc_script_versions": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      },
+      "description": "\u6d4b\u7b97\u811a\u672c\u7248\u672c\u5feb\u7167\uff1a{version,date,label,feedback,script}\uff0c\u6bcf\u6b21\u6309\u53cd\u9988\u4fee\u6539\u540e\u8ffd\u52a0\uff1bscript \u53ef\u4e3a\u65e7\u5355\u811a\u672c\u6216 per_service \u7ed3\u6784\uff08\u542b\u5404\u811a\u672c\u81ea\u8eab\u7684 versions \u5386\u53f2\uff09"
+    },
+    "calc_runs": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      },
+      "description": "\u6d4b\u7b97\u6267\u884c\u8bb0\u5f55\uff1a{date,script_version,inputs,enabled,groups:[{name,kind,items,output}],totals}\uff1b\u65e7\u683c\u5f0f\u4e3a {date,script_version,inputs,output}"
+    },
+    "raw_text": {
+      "type": "string",
+      "description": "\u62a5\u4ef7\u5355\u539f\u59cb\u5185\u5bb9\uff08\u622a\u65ad\u4fdd\u5b58\uff09"
+    },
+    "unmatched_cities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "\u672a\u547d\u4e2d\u57ce\u5e02\u8282\u70b9\u5e93\u7684\u57ce\u5e02"
+    },
+    "notes": {
+      "type": "string",
+      "description": "\u5907\u6ce8"
+    }
+  },
+  "required": [
+    "supplier_name",
+    "status"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "user"
+          }
+        }
+      ]
+    },
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "user"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "user"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "user"
+          }
+        }
+      ]
+    }
+  }
+}

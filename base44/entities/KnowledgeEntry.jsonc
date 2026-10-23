@@ -1,0 +1,144 @@
+{
+  "name": "KnowledgeEntry",
+  "type": "object",
+  "properties": {
+    "kind": {
+      "type": "string",
+      "enum": [
+        "term_mapping",
+        "rule",
+        "calc_logic",
+        "correction"
+      ],
+      "description": "term_mapping=\u672f\u8bed\u6620\u5c04\uff1brule=\u8bc6\u522b\u89c4\u5219\uff1bcalc_logic=\u8ba1\u8d39\u903b\u8f91\uff1bcorrection=\u4fee\u6b63\u7ecf\u9a8c"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "supplier_alias",
+        "city_alias",
+        "fee_item",
+        "other"
+      ],
+      "description": "supplier_alias=\u4f9b\u5e94\u5546\u522b\u540d\uff1bcity_alias=\u57ce\u5e02\u522b\u540d\uff1bfee_item=\u8d39\u7528\u9879\u76ee\uff1bother=\u5176\u4ed6"
+    },
+    "term": {
+      "type": "string",
+      "description": "\u672f\u8bed/\u522b\u540d\u539f\u6587"
+    },
+    "mapped_value": {
+      "type": "string",
+      "description": "\u6620\u5c04\u76ee\u6807\u503c"
+    },
+    "content": {
+      "type": "string",
+      "description": "\u89c4\u5219/\u7ecf\u9a8c/\u8ba1\u8d39\u903b\u8f91\u8bf4\u660e"
+    },
+    "applies_to": {
+      "type": "string",
+      "description": "\u8ba1\u8d39\u903b\u8f91\u9002\u7528\u6761\u4ef6"
+    },
+    "variables": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      },
+      "description": "\u8ba1\u8d39\u903b\u8f91\u53d8\u91cf\uff1a{name,label,unit,default}"
+    },
+    "expressions": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      },
+      "description": "\u8ba1\u8d39\u903b\u8f91\u8868\u8fbe\u5f0f\uff1a{label,expr}"
+    },
+    "currency": {
+      "type": "string",
+      "description": "\u8ba1\u8d39\u903b\u8f91\u5e01\u79cd"
+    },
+    "unit": {
+      "type": "string",
+      "description": "\u8ba1\u4ef7\u5355\u4f4d"
+    },
+    "source": {
+      "type": "string",
+      "enum": [
+        "manual",
+        "correction"
+      ],
+      "description": "manual=\u624b\u52a8\u7ef4\u62a4\uff1bcorrection=\u4e13\u5bb6\u4fee\u6b63\u81ea\u52a8\u6c89\u6dc0"
+    },
+    "enabled": {
+      "type": "boolean",
+      "description": "\u662f\u5426\u5728\u8bc6\u522b\u65f6\u751f\u6548"
+    },
+    "quote_id": {
+      "type": "string",
+      "description": "\u6765\u6e90\u62a5\u4ef7\u5355\uff08\u4fee\u6b63\u6c89\u6dc0\u65f6\u8bb0\u5f55\uff09"
+    }
+  },
+  "required": [
+    "kind",
+    "category",
+    "source",
+    "enabled"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "user"
+          }
+        }
+      ]
+    },
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "user"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "user"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "user"
+          }
+        }
+      ]
+    }
+  }
+}
